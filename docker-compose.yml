@@ -1,0 +1,61 @@
+version: '3'
+services:
+    sessionservice-service:
+        build: ./sessionservice
+        environment:
+            - FP_DB_ADDRESS=mongodb://db:27017
+            - FP_REDIS_ADDRESS=redis:6379
+        networks:
+            - farerpath-testnet
+        ports:
+            - "17080"
+        links:
+            - redis:redis
+            - sessiondb:db
+    authservice-service:
+        build: ./authservice
+        networks:
+            - farerpath-testnet
+        ports:
+            - "17080"
+    albumservice-service:
+        build: ./albumservice
+        networks:
+            - farerpath-testnet
+        ports:
+            - "17080"
+    fileservice-service:
+        build: ./fileservice
+        networks:
+            - farerpath-testnet
+        ports:
+            - "17080"
+    apiservice:
+        build: ./apiservice
+        networks:
+            - farerpath-testnet
+        ports:
+            - "80:80"
+    redis:
+        image: redis:alpine
+        networks:
+            - farerpath-testnet
+        ports:
+            - "6379"
+    maindb-service:
+        image: mongo:latest
+        networks:
+            - farerpath-testnet
+        ports:
+            - "27017"
+
+    sessiondb:
+        image: mongo:latest
+        networks:
+            - farerpath-testnet
+        ports:
+            - "27017"
+
+networks:
+    farerpath-testnet:
+

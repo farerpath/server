@@ -1,0 +1,93 @@
+// protoc -I proto/ proto/auth.proto --go_out=plugins=grpc:proto
+
+syntax="proto3";
+
+option go_package = "authpb";
+
+package auth;
+
+service Auth{
+	rpc Login (LoginRequest) returns (LoginReply) {}
+	rpc Logout (LogoutRequest) returns (LogoutReply) {}
+	rpc Register (RegisterRequest) returns (RegisterReply) {}
+	rpc GetUser (GetUserRequest) returns (GetUserReply) {}
+}
+
+message User {
+	string 	email = 1;
+	string 	userID= 2;
+	string 	userName = 3;
+	string 	password = 4;
+	string 	firstName = 5;
+	string 	lastName = 6;
+	string 	country = 7;
+	int64 	birthday = 8;
+	string 	profilePhotoPath = 9;
+	uint32 	sessionDuration = 10;
+	bool 	isBirthdayPublic = 11;
+	bool 	isCountryPublic = 12;
+	bool 	isProfilePublic = 13;
+}
+
+message RegisterRequest {
+	string email = 1;
+	string userID = 2;
+	string password = 4;
+}
+
+message RegisterReply {
+	
+}
+
+message LogoutRequest {
+	string token = 1;
+}
+
+message LogoutReply {
+
+}
+
+message Token {
+	string value = 1;
+}
+
+message LoginReply {
+	string 	userName = 1;
+	string 	userID = 2;
+	string 	country = 3;
+	string 	refreshToken = 4;
+	string	authToken = 5;
+	int32 	statusCode = 6;
+}
+
+message LoginRequest {
+	string 	loginUserID = 1;
+	string 	loginPassword = 2;
+	int32 	loginDeviceType = 3;
+	string 	loginIP = 4;
+}
+
+message Response {
+	string 	value = 1;
+	int32 	statusCode = 2;
+}
+
+message GetUserRequest {
+	string userID = 1;
+}
+
+message GetUserReply {
+	string 	email = 1;
+	string 	userID= 2;
+	string 	userName = 3;
+	string 	password = 4;
+	string 	firstName = 5;
+	string 	lastName = 6;
+	string 	country = 7;
+	int64 	birthday = 8;
+	string 	profilePhotoPath = 9;
+	uint32 	sessionDuration = 10;
+	bool 	isBirthdayPublic = 11;
+	bool 	isCountryPublic = 12;
+	bool 	isProfilePublic = 13;
+}

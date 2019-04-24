@@ -1,0 +1,73 @@
+// protoc -I proto/ proto/session.proto --go_out=plugins=grpc:proto
+
+syntax="proto3";
+
+option go_package = "sessionpb";
+
+package session;
+
+service Session {
+	// Session
+	rpc NewSession (SessionRequest) returns (SessionResponse) {}
+	rpc GetAllSessions (UserId) returns (UserSessions) {}
+	rpc VerifyToken (Token) returns (VerifyResponse) {}
+	rpc DelSession (Token) returns (Value) {}
+	rpc ExtendSession (ExtendRequest) returns (ExtendResponse) {}
+}
+
+message VerifyResponse {
+	string userID = 1;
+	bool valid = 2;
+}
+
+message Value {
+	string value = 1;
+}
+
+message UserId {
+	string userID = 1;
+}
+
+message Token {
+	string token = 1;
+}
+
+message UserSessions {
+	repeated UserSession session = 1;
+}
+
+message SessionRequest {
+	string userID = 1;
+	int32 loginDeviceType = 2;
+	int32 sessionDurationTime =3;
+	string loginIP = 4;
+}
+
+message SessionResponse {
+	string authToken = 1;
+	string refreshToken = 2;
+}
+
+message ExtendRequest {
+	string userID = 1;
+	string authToken = 2;
+	string refreshToken = 3;
+	string extendIP = 4;
+	int32 deviceType = 7; 
+	int32 sessionDurationTime = 8;
+}
+
+message ExtendResponse {
+	string refreshToken = 1;
+	string authToken = 2;
+}
+
+message UserSession {
+	string userID = 1;
+	string refreshToken = 2;
+	string authToken = 3;
+	int64 loginTime = 4;
+	string loginIP = 5;
+	string loginRegion = 6;
+	int32 deviceType = 7;
+}

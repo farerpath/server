@@ -1,0 +1,396 @@
+// protoc -I proto/ proto/album.proto --go_out=plugins=grpc:proto
+
+syntax="proto3";
+
+option go_package = "albumpb";
+
+package farerpath.album;
+
+service Album {
+    rpc MakeAlbumList (MakeAlbumListRequest) returns (MakeAlbumListReply) {}
+    rpc GetAlbumList (GetAlbumListRequest) returns (GetAlbumListReply) {}
+    rpc DelAlbumList (DelAlbumListRequest) returns (DelAlbumListReply) {}
+
+    rpc MakeAlbum (MakeAlbumRequest) returns (MakeAlbumReply) {}
+    rpc GetAlbum (GetAlbumRequest) returns (GetAlbumReply) {}
+    rpc DelAlbum (DelAlbumRequest) returns (DelAlbumReply) {}
+    rpc RenameAlbum (RenameAlbumRequest) returns (RenameAlbumReply) {}
+    rpc EndAlbum (EndAlbumRequest) returns (EndAlbumReply) {}
+    rpc PublishAlbum (PublishAlbumRequest) returns (PublishAlbumReply) {}
+    rpc AddPicture (AddPictureRequest) returns (AddPictureReply) {}
+    rpc AddMember (AddMemberRequest) returns (AddMemberReply) {}
+    rpc ArchiveAlbum (ArchiveAlbumRequest) returns (ArchiveAlbumReply) {}
+    rpc GetPublicAlbum (GetPublicAlbumRequest) returns (GetPublicAlbumReply) {}
+
+    rpc MakePicture (MakePictureRequest) returns (MakePictureReply) {}
+    rpc GetPicture (GetPictureRequest) returns (GetPictureReply) {}
+    rpc RenamePicture (RenamePictureRequest) returns (RenamePictureReply) {}
+    rpc RecoverPicture (RecoverPictureRequest) returns (RecoverPictureReply) {}
+    rpc AddComment (AddCommentRequest) returns (AddCommentReply) {}
+    rpc DelComment (DelCommentRequest) returns (DelCommentReply) {}
+    rpc AddNiceShot (AddNiceShotRequest) returns (AddNiceShotReply) {}
+    rpc SubNiceShot (SubNiceShotRequest) returns (SubNiceShotReply) {}
+    rpc DelPicture (DelPictureRequest) returns (DelPictureReply) {}
+    rpc ArchivePicture (ArchivePictureRequest) returns (ArchivePictureReply) {}
+    rpc DestroyPicture (DestroyPictureRequest) returns (DestroyPictureReply) {}
+    rpc GetPictureList (GetPictureListRequest) returns (GetPictureListReply) {}
+}
+
+message MakeAlbumListRequest {
+    string reqUserID = 1;
+}
+
+message MakeAlbumListReply {
+
+}
+
+message DelAlbumListRequest {
+    string reqUserID = 1;
+}
+
+message DelAlbumListReply {
+
+}
+
+message MakeAlbumRequest {
+    string albumID = 1;
+    string albumName = 2;
+    string owner = 3;
+    int64 beginTime = 4;
+    int64 endTime = 5;
+    Path travelPath = 6;
+    uint32 publishRange = 7;
+    repeated string members = 8;
+    repeated string pictures = 9;
+}
+
+message MakeAlbumReply {
+
+}
+
+message GetAlbumListRequest {
+    string reqUserID = 1;
+    string dstUserID = 2;
+}
+
+message GetAlbumListReply {
+    string userID = 1;
+    repeated AlbumNode albumList = 2;
+}
+
+message GetAlbumRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+}
+
+message GetAlbumReply {
+    string albumID = 1;
+    string albumName = 2;
+    string owner = 3;
+    int64 beginTime = 4;
+    int64 endTime = 5;
+    Path travelPath = 6;
+    uint32 publishRange = 7;
+    repeated string members = 8;
+    repeated string pictures = 9;
+}
+
+message GetPublicAlbumRequest {
+    string dstUserID = 1;
+    string albumID = 2;
+}
+
+message GetPublicAlbumReply {
+    string albumID = 1;
+    string albumName = 2;
+    string owner = 3;
+    int64 beginTime = 4;
+    int64 endTime = 5;
+    Path travelPath = 6;
+    uint32 publishRange = 7;
+    repeated string members = 8;
+    repeated string pictures = 9;
+}
+
+message RenameAlbumRequest {
+    string userID = 1;
+    string albumID = 2;
+    string albumName = 3;
+}
+
+message RenameAlbumReply {
+
+}
+
+message AddMemberRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+    repeated string memberID = 3;
+}
+
+message AddMemberReply {
+
+}
+
+message DelMemberRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+    repeated string memberID = 3;
+}
+
+message DelMemberRelpy {
+
+}
+
+message DelAlbumRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+}
+
+message DelAlbumReply {
+
+}
+
+message ArchiveAlbumRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+}
+
+message ArchiveAlbumReply {
+
+}
+
+message PublishAlbumRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+    bool publish = 3;
+}
+
+message PublishAlbumReply {
+
+}
+
+message EndAlbumRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+}
+
+message EndAlbumReply {
+
+}
+
+message MakePictureRequest {
+    string pictureName = 1;
+	string owner = 2;
+	string pictureID = 3;
+	int64 timeMetadata = 4;
+	uint32 publishRange = 5;
+	uint32 countNiceShot = 6;
+	bool archived = 7;
+	repeated Comment comments = 8;
+	Path path = 9;
+}
+
+message MakePictureReply {
+
+}
+
+message AddPictureRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    string albumID = 3;
+}
+
+message AddPictureReply {
+
+}
+
+message GetPictureRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+    string pictureID = 3;
+}
+
+message GetPictureReply {
+    string pictureName = 1;
+	string owner = 2;
+	string pictureID = 3;
+	int64 timeMetadata = 4;
+	uint32 publishRange = 5;
+	uint32 countNiceShot = 6;
+	bool archived = 7;
+	repeated Comment comments = 8;
+	Path path = 9;
+}
+
+message GetAlbumPictureRequest {
+    string reqUserID = 1;
+    string albumID = 2;
+    string pictureID = 3;
+}
+
+message GetAlbumPictureReply {
+    string pictureName = 1;
+	string owner = 2;
+	string pictureID = 3;
+	int64 timeMetadata = 4;
+	uint32 publishRange = 5;
+	uint32 countNiceShot = 6;
+	bool archived = 7;
+	repeated Comment comments = 8;
+	Path path = 9;
+}
+
+message RenamePictureRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    string pictureName = 3;
+}
+
+message RenamePictureReply {
+
+}
+
+message AddNiceShotRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+}
+
+message AddNiceShotReply {
+    int32 countNiceShots = 1;
+}
+
+message SubNiceShotRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+}
+
+message SubNiceShotReply {
+    int32 countNiceShots = 1;
+}
+
+message AddCommentRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    Comment comment = 3;
+}
+
+message AddCommentReply {
+
+}
+
+message DelCommentRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    string commentID = 3;
+}
+
+message DelCommentReply {
+
+}
+
+message EditPublishRangeRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    uint32 publishRange = 3;
+}
+
+message EditPublishRangeReply {
+    
+}
+
+message DelPictureRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+    string albumID = 3;
+}
+
+message DelPictureReply {
+
+}
+
+message ArchivePictureRequest {
+    string userID = 1;
+    string pictureID = 2;
+}
+
+message ArchivePictureReply {
+
+}
+
+message DestroyPictureRequest {
+    string userID = 1;
+    string pictureID = 2;
+}
+
+message DestroyPictureReply {
+}
+
+message GetPictureListRequest {
+    string reqUserID = 1;
+    string dstUserID = 2;
+    bool archived = 3;
+}
+
+message GetPictureListReply {
+    repeated Picture pictureList = 1;
+}
+
+message RecoverPictureRequest {
+    string reqUserID = 1;
+    string pictureID = 2;
+}
+
+message RecoverPictureReply {
+
+}
+
+message Path {
+	string country = 1;
+	string city = 2;
+	GPSData location = 3;
+}
+
+message GPSData {
+	string longitude = 1;
+	string latitude = 2;
+	string altitude = 3;
+}
+
+message Comment {
+    string owner = 1;
+    string userName = 2;
+	string value = 3;
+    string time = 4;
+    string commentID = 5;
+}
+
+message AlbumNode {
+    string albumID = 1;
+    string albumName = 2;
+    string owner = 3;
+    int64 beginTime = 4;
+    int64 endTime = 5;
+    Path travelPath = 6;
+    uint32 publishRange = 7;
+    repeated string members = 8;
+    repeated string pictures = 9;
+    bool archived = 10;
+}
+
+message AlbumListNode {
+    string albumID = 1;
+    bool isPublic = 2;
+}
+
+message Picture {
+    string pictureName = 1;
+	string owner = 2;
+	string pictureID = 3;
+	int64 timeMetadata = 4;
+	uint32 publishRange = 5;
+	uint32 countNiceShot = 6;
+	bool archived = 7;
+	repeated Comment comments = 8;
+	Path path = 9;
+}
